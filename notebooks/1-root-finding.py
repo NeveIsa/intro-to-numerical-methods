@@ -1,14 +1,27 @@
 import marimo
 
-__generated_with = "0.13.10"
+__generated_with = "0.12.9"
 app = marimo.App(width="medium")
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md("""# 1. Root Finding: **Bisection** and **NewtonRaphson**""")
+    return
 
 
 @app.cell(hide_code=True)
 def _(mo):
     poly = mo.ui.dropdown(options=["quadratic", "cubic"], value="cubic", full_width=False)
     poly
-    return (poly,)
+
+    pickfn = mo.md(
+        '''
+        **Pick function:**   {poly}
+        '''
+    ).batch(poly=poly)
+    pickfn
+    return pickfn, poly
 
 
 @app.cell(hide_code=True)
@@ -40,7 +53,7 @@ def _(df, f, np, sns):
     dy = df(x)
     sns.lineplot(x=x,y=y, label="$f(x)$")
     # sns.lineplot(x=x,y=dy,label="$f'(x)$")
-    return x, y
+    return dy, x, y
 
 
 @app.cell(hide_code=True)
@@ -54,7 +67,7 @@ def _(mo, poly):
 
     sliders = mo.ui.array(sliderelements)
     sliders
-    return (sliders,)
+    return sliderelements, sliders
 
 
 @app.cell(hide_code=True)
@@ -72,7 +85,7 @@ def _(bisection, f, np, plt, sns, x, y):
     sns.scatterplot(x=bsearch, y=f(bsearch), marker="o", color=colors, label="root approximations")
     sns.scatterplot( x=np.array([x0,x1]), y=np.array([f(x0),f(x1)]), color='black', label="x0,x1" )
     plt.title("Bisection Method")
-    return
+    return alphas, bsearch, colors, initf, initx, x0, x1
 
 
 @app.cell(hide_code=True)
@@ -87,7 +100,7 @@ def _(df, f, newtonraphson, np, plt, sns, x, y):
     sns.scatterplot(x=nrsearch, y=f(nrsearch), marker="o", color=colors2, label="root approximations")
     sns.scatterplot(x=[_x0],y=[f(_x0)], color='black', label="x0")
     plt.title("Newtonraphson Method")
-    return
+    return alphas2, colors2, nrsearch
 
 
 @app.cell(hide_code=True)
@@ -115,7 +128,7 @@ def _():
     sns.set_style("whitegrid")
 
     import matplotlib.pyplot as plt
-    return bisection, mo, newtonraphson, np, plt, sns
+    return bisection, mo, newtonraphson, np, os, plt, sns, sys
 
 
 if __name__ == "__main__":
