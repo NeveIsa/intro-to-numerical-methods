@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.13.10"
+__generated_with = "0.13.11"
 app = marimo.App(width="medium")
 
 
@@ -176,8 +176,6 @@ def _(bsearch, deflateQuad, np):
 
 @app.cell
 def _(bsearch, h, h_func, mo, np, plt, roundedBRoot, sns, x):
-    _x2 = np.random.rand(10)*25 - 10
-
     finalRoot = (-(h_func[1]/(h_func[0])))
     lplt = sns.lineplot(x=x,y=h(x))
 
