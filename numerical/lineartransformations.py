@@ -15,7 +15,7 @@ class LinearTransform(ABC):
 class Rotation(LinearTransform):
     def __init__(self,theta,deg=True):
         if deg:
-            self.theta = theta*np.pi/180
+            self.theta = np.deg2rad(theta)
         else:
             self.theta = theta
 
@@ -28,7 +28,7 @@ class Rotation(LinearTransform):
 class Reflection(LinearTransform):
     def __init__(self, theta, deg=True):
         if deg:
-            self.theta = theta*np.pi/180
+            self.theta = np.deg2rad(theta)
         else:
             self.theta = theta
     @property
@@ -47,22 +47,14 @@ class Stretching(LinearTransform):
         return np.array([[self.a,0],[0,self.b]])
 
 class Projection(LinearTransform):
-    def __init__(self,projx,projy):
-        if projx > 0:
-            projx = 1
-        else:
-            projx = 0
-
-        if projy > 0:
-            projy = 1
-        else:
-            projy = 0
-
-        self.projx,self.projy = projx,projy
+    def __init__(self,direction):
+        
+        vec = np.array(direction)
+        self.normal = vec / np.linalg.norm(vec) 
 
     @property
     def matrix(self):
-        return np.array([[self.projx,0],[0, self.projy]])
+        return np.outer(self.normal,self.normal) 
 
 
 
