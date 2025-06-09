@@ -25,14 +25,14 @@ def _(mo):
 
 
 @app.cell(hide_code=True)
-def _(mo, poly, sliders):
-    a,b = [sliders.elements[_].value for _ in range(2)]
+def _(mo, poly, sliderelements):
+    a,b = [sliderelements.elements[_].value for _ in range(2)]
     c = 0
 
     _fntext = "Polynomial: f(x) = (x-a)(x-b)"
     if poly.value == "cubic":
         _fntext += "(x-c)"
-        c = sliders.elements[2].value
+        c = sliderelements.elements[2].value
 
 
     _dfntext = "f'(x) = 2x - (a + b)"
@@ -47,22 +47,13 @@ def _(mo, poly, sliders):
 
 @app.cell
 def _(mo):
-    sliderelements=[
-        mo.ui.slider(-10,-5,step=1,label='a', value=-5, show_value=True),
-        mo.ui.slider(0,5,step=1,label='b', value=4, show_value=True),
-        mo.ui.slider(10,15,step=1,label='c',value=10, show_value=True)
-    ]
-
-    sliders = mo.ui.array(sliderelements)
-    sliders
-
-    pickRoot = mo.md(
-        '''
-        **Begin by selecting the roots for the cubic function:**   {sliders}
-        '''
-    ).batch(sliders=sliders)
-    pickRoot
-    return (sliders,)
+    sliderelements = mo.ui.array([
+        mo.ui.slider(-10, -5, step=1, label='Root 1', value=-5, show_value=True),
+        mo.ui.slider(0, 5, step=1, label='Root 2', value=4, show_value=True),
+        mo.ui.slider(10, 15, step=1, label='Root 3', value=10, show_value=True)
+    ])
+    sliderelements
+    return (sliderelements,)
 
 
 @app.cell(hide_code=True)
