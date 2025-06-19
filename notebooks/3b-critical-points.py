@@ -145,7 +145,7 @@ def _(d2f, f, g, g_func, mo, np, plt, roundedNRRoot, sns, x):
     sns.scatterplot(x=[finalRoot], y=[0], color='red', label=f'root')
     plt.title("Root Finding Method for Linear Equations")
 
-    mo.md(f"Then, after deflating the polynomial by dividing it by the first root (x-(${roundedNRRoot}$)) and turning it into g(x), we can then find the second root of f'(x) (x=${(finalRoot)}$) using the root finding method for linear equations (-b/2a). This will alow us to determine the next critical point: {mo.as_html(lplt)}")
+    mo.md(f"Then, after deflating the polynomial by dividing it by the first root (x-(${roundedNRRoot}$)) and turning it into g(x), we can then find the second root of f'(x) (x=${(finalRoot)}$) using the root finding method for linear equations (-b/a). This will alow us to determine the next critical point: {mo.as_html(lplt)}")
 
     return finalRoot, minmax2, sign2, val2
 

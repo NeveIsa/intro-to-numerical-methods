@@ -176,7 +176,7 @@ def _(bsearch, h, h_func, mo, np, plt, roundedBRoot, sns, x):
     sns.scatterplot(x=[finalRoot], y=[0], color='red', label=f'root' )
     plt.title("Root Finding Method for Linear Equations")
 
-    mo.md(f"Finally, after deflating the polynomial once again by dividing it by (x-(${roundedBRoot}$)), we can then find the third root (x=${np.round(finalRoot)}$) using the root finding method for linear equations (-b/2a): {mo.as_html(lplt)}")
+    mo.md(f"Finally, after deflating the polynomial once again by dividing it by (x-(${roundedBRoot}$)), we can then find the third root (x=${np.round(finalRoot)}$) using the root finding method for linear equations (-b/a): {mo.as_html(lplt)}")
 
     return
 
