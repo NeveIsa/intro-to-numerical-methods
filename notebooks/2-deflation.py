@@ -25,14 +25,14 @@ def _(mo):
 
 
 @app.cell(hide_code=True)
-def _(mo, poly, sliders):
-    a,b = [sliders.elements[_].value for _ in range(2)]
+def _(mo, poly, sliderelements):
+    a,b = [sliderelements.elements[_].value for _ in range(2)]
     c = 0
 
     _fntext = "Polynomial: f(x) = (x-a)(x-b)"
     if poly.value == "cubic":
         _fntext += "(x-c)"
-        c = sliders.elements[2].value
+        c = sliderelements.elements[2].value
 
 
     _dfntext = "f'(x) = 2x - (a + b)"
@@ -47,22 +47,13 @@ def _(mo, poly, sliders):
 
 @app.cell
 def _(mo):
-    sliderelements=[
-        mo.ui.slider(-10,-5,step=1,label='a', value=-5, show_value=True),
-        mo.ui.slider(0,5,step=1,label='b', value=4, show_value=True),
-        mo.ui.slider(10,15,step=1,label='c',value=10, show_value=True)
-    ]
-
-    sliders = mo.ui.array(sliderelements)
-    sliders
-
-    pickRoot = mo.md(
-        '''
-        **Begin by selecting the roots for the cubic function:**   {sliders}
-        '''
-    ).batch(sliders=sliders)
-    pickRoot
-    return (sliders,)
+    sliderelements = mo.ui.array([
+        mo.ui.slider(-10, -5, step=1, label='Root 1', value=-5, show_value=True),
+        mo.ui.slider(0, 5, step=1, label='Root 2', value=4, show_value=True),
+        mo.ui.slider(10, 15, step=1, label='Root 3', value=10, show_value=True)
+    ])
+    sliderelements
+    return (sliderelements,)
 
 
 @app.cell(hide_code=True)
@@ -185,7 +176,7 @@ def _(bsearch, h, h_func, mo, np, plt, roundedBRoot, sns, x):
     sns.scatterplot(x=[finalRoot], y=[0], color='red', label=f'root' )
     plt.title("Root Finding Method for Linear Equations")
 
-    mo.md(f"Finally, after deflating the polynomial once again by dividing it by (x-(${roundedBRoot}$)), we can then find the third root (x=${np.round(finalRoot)}$) using the root finding method for linear equations (-b/2a): {mo.as_html(lplt)}")
+    mo.md(f"Finally, after deflating the polynomial once again by dividing it by (x-(${roundedBRoot}$)), we can then find the third root (x=${np.round(finalRoot)}$) using the root finding method for linear equations (-b/a): {mo.as_html(lplt)}")
 
     return
 
