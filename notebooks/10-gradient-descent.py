@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.13.15"
+__generated_with = "0.14.6"
 app = marimo.App(width="medium")
 
 
@@ -37,9 +37,7 @@ def _(mo):
     - For $t = 0....N-1\\$
     1. Calculate the gradient/derivative at $x_{t}$, i.e.  $f'(x_{t}) \in \mathbb{R}$.  
     2. Update $x$ according to the rule
-          $x_{t+1} = x_{t} - \gamma \cdot f'(x_{t})$  
-
-
+          $x_{t+1} = x_{t} - \gamma \cdot f'(x_{t})$
     """
     )
     return
@@ -49,7 +47,7 @@ def _(mo):
 def _(np):
     def gradientdescent(df, x0, gamma=1e-3, N=20):
         xs = [x0]
-    
+
         x = x0
         for i in range(N):
             x = x - gamma * df(x)
@@ -89,7 +87,7 @@ def _(descend, dfn, fn, gradientdescent, plt, sns, x, x0slider, y):
 
     plt.xlim(x.min()-1,x.max()+1)
     plt.show()
-    
+
     return
 
 
