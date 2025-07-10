@@ -40,3 +40,23 @@ def newtonraphson(fn, dfn, x0, ytol=1e-6):
     return visited
 
 
+def secant(fn, x0, x1, ytol=1e-6):
+    y0 = fn(x0)
+    y1 = fn(x1)
+
+    visited = [x0, x1]
+
+    while abs(y1) > ytol:
+        if y1 == y0:
+            return
+        
+        m = (y1-y0) / (x1-x0)
+        x2 = x1-y1 / m
+        visited.append(x2)
+
+        x0, y0 = x1, y1
+        x1, y1 = x2, fn(x2)
+    
+    return visited
+
+            
