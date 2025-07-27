@@ -56,11 +56,6 @@ def _(loss, np, plt, sns):
 
 
 @app.cell
-def _():
-    return
-
-
-@app.cell
 def _(dloss, np, plt, sns):
     _x1 = np.arange(0, 11, 0.01)
     dlossVals = [dloss(m) for m in _x1]

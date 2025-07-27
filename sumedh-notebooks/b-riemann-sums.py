@@ -205,19 +205,6 @@ def _(f, mo, n, plt, riemannSum, xplot):
 
 
 @app.cell
-def _(a, b, c, poly):
-    def f(x):
-        if poly.value == "cubic": return (x-a)*(x-b)*(x-c)
-
-    def df(x):
-        if poly.value == "cubic": return 3*x**2 - 2*x*(a+b+c) + (a*b + b*c + c*a)
-
-    def d2f(x):
-        if poly.value == "cubic": return 6*x - 2*(a+b+c)
-    return d2f, df, f
-
-
-@app.cell
 def _(mo):
     mo.md(
         r"""
@@ -270,6 +257,19 @@ def _(f, mo, n, plt, riemannSum, xplot):
 
 
 @app.cell
+def _(a, b, c, poly):
+    def f(x):
+        if poly.value == "cubic": return (x-a)*(x-b)*(x-c)
+
+    def df(x):
+        if poly.value == "cubic": return 3*x**2 - 2*x*(a+b+c) + (a*b + b*c + c*a)
+
+    def d2f(x):
+        if poly.value == "cubic": return 6*x - 2*(a+b+c)
+    return d2f, df, f
+
+
+@app.cell
 def _():
     import marimo as mo
     import numpy as np
@@ -277,7 +277,7 @@ def _():
 
     import sys,os
     sys.path.append(os.path.dirname(__name__))
-    from numerical.riemannsums import riemannSum
+    from numerical.areas import riemannSum
 
     import seaborn as sns
     sns.set_style("whitegrid")
