@@ -1,15 +1,19 @@
 import numpy as np
-
-def bisection(fn,a,b, xtol=1e-6):
+def bisection(fn, a, b, xtol=1e-6):
     if fn(a)*fn(b) > 0:
         return []
-    
+
     visited = []
+
     while abs(a-b) > xtol:
         mid = (a+b)/2
         visited.append(mid)
+        fm = fn(mid)             # <-- compute once
 
-        if fn(a)*fn(mid) < 0:
+        if fm == 0:              # <-- NEW: stop if midpoint is a root
+            return visited
+
+        if fn(a)*fm < 0:
             b = mid
             continue
         else:
@@ -17,6 +21,7 @@ def bisection(fn,a,b, xtol=1e-6):
             continue
 
     return visited
+
 
 
 def newtonraphson(fn, dfn, x0, ytol=1e-6):
