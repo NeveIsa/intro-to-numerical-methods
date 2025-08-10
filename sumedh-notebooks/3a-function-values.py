@@ -135,15 +135,17 @@ def _(df, f, g, mo, newtonraphson, np, plt, sliderelements, sns, x, y):
 
 
 @app.cell
-def _(deflateCubic, np, nrsearch):
+def _(g, nrsearch):
     #defining h(x)
 
-    h_func= deflateCubic(nrsearch[-1])[0]
+
+
 
     def h(x):
-        deflated_function = np.poly1d(h_func)
-        return deflated_function(x)
-    return h, h_func
+        return g(x)/(x-nrsearch[-1])
+        # deflated_function = np.poly1d(h_func)
+        # return deflated_function(x)
+    return (h,)
 
 
 @app.cell
@@ -169,24 +171,25 @@ def _(bisection, h, mo, np, plt, roundedNRRoot, sns, x):
 
 
 @app.cell
-def _(bsearch, deflateQuad, h_func, np):
+def _(bsearch, h):
     #define i(x)
 
-    i_func = deflateQuad(bsearch[-1])[0]
+
 
     def i(x):
-        deflated_function = np.poly1d(i_func)
-        return deflated_function(x)
+        return h(x)/(x-bsearch[-1])
+        # deflated_function = np.poly1d(i_func)
+        # return deflated_function(x)
 
-    print(h_func)
-    print(i_func)
-    print(deflateQuad(bsearch[-1]))
-    return i, i_func
+
+    return (i,)
 
 
 @app.cell
-def _(bsearch, i, i_func, mo, np, plt, roundedBRoot, sns, x):
-    finalRoot = np.round((-i_func[1]/i_func[0]), decimals=3)
+def _(bsearch, i, mo, np, plt, roundedBRoot, sns, x):
+    from scipy.optimize import root_scalar
+    rootproperties = root_scalar(i, bracket=[-100, 100])
+    finalRoot = np.round(rootproperties.root, decimals=3)
     lplt = sns.lineplot(x=x,y=i(x))
 
     alphas2= np.linspace(0.3, 1, len(bsearch) )
@@ -244,28 +247,13 @@ def _(a, b, c, poly, sliderelements):
 
 
 @app.cell
-def _(a, b, c, g, np, sliderelements):
+def _(g):
     #deflation functions
 
-    def deflateCubic(root):
-        divisor = np.array([1, -root])
-        coefficients = [1, -a - b - c, a*b + a*c + b*c, -a*b*c]
-        deflated_poly, remainder = np.polydiv(coefficients, divisor)
-        deflated_poly = np.round(deflated_poly, decimals=10)
-        remainder = np.round(remainder, decimals=10)
-        return deflated_poly, remainder
-
-    def deflateQuad(root):
-        divisor = np.array([1, -root])
-        coefficients = [1, -(b + c), b * c - sliderelements.value[3]]
-        deflated_poly, remainder = np.polydiv(coefficients, divisor)
-        deflated_poly = np.round(deflated_poly, decimals=10)
-        remainder = np.round(remainder, decimals=10)
-        return deflated_poly, remainder
 
     print(g(10.096))
 
-    return deflateCubic, deflateQuad
+    return
 
 
 @app.cell
